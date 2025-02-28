@@ -1,0 +1,79 @@
+mysql:
+  auth:
+    database: myapp_db
+    username: myapp_user
+    password: myapp_password
+    rootPassword: root_password
+  primary:
+    persistence:
+      size: 8Gi
+
+kafka:
+  auth:
+    enabled: false
+  listeners:
+    client:
+      protocol: PLAINTEXT
+    controller:
+      protocol: PLAINTEXT
+    interbroker:
+      protocol: PLAINTEXT
+  allowPlaintextListener: true
+  replicaCount: 1
+  heapOpts: "-Xmx512m -Xms512m"
+  persistence:
+    size: 8Gi
+  zookeeper:
+    persistence:
+      size: 8Gi
+  
+redis:
+  auth:
+    password: myapp_password
+  architecture: standalone
+  master:
+    persistence:
+      size: 8Gi
+
+springApp:
+  replicaCount: 1
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+  image:
+    repository: jinhyeokfang/spring
+    tag: build-3
+    pullPolicy: Always
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+  env:
+    - name: DB_URL
+      value: "jdbc:mysql://spring-mysql:3306/myapp_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8"
+    - name: DB_NAME
+      value: "myapp_db"
+    - name: DB_USERNAME
+      value: "myapp_user"
+    - name: DB_PASSWORD
+      value: "myapp_password"
+    - name: REDIS_HOST
+      value: "spring-redis-master"
+    - name: REDIS_PORT
+      value: "6379"
+    - name: REDIS_PASSWORD
+      value: "myapp_password"
+    - name: KAFKA_BOOTSTRAP_SERVERS
+      value: "spring-kafka:9092"
+    - name: JWT_SECRET
+      value: "dev_jwt_secret_key"
+    - name: JWT_EXPIRATION_MS
+      value: "86400000"
+    - name: SERVER_PORT
+      value: "8080"
