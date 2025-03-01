@@ -45,7 +45,7 @@ springApp:
     targetMemoryUtilizationPercentage: 80
   image:
     repository: jinhyeokfang/spring
-    tag: build-8
+    tag: build-9
     pullPolicy: Always
   resources:
     requests:
