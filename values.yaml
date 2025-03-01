@@ -44,7 +44,7 @@ springApp:
     targetCPUUtilizationPercentage: 70
     targetMemoryUtilizationPercentage: 80
   image:
-    repository: jinhyeokfang/spring
+    repository: ghcr.io/kgu-basic-capstone/spring
     tag: build-9
     pullPolicy: Always
   resources:
