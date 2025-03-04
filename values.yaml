@@ -7,6 +7,13 @@ mysql:
   primary:
     persistence:
       size: 8Gi
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
 
 kafka:
   auth:
@@ -21,11 +28,25 @@ kafka:
   allowPlaintextListener: true
   replicaCount: 1
   heapOpts: "-Xmx512m -Xms512m"
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "250m"
+    limits:
+      memory: "2Gi"
+      cpu: "500m"
   persistence:
     size: 8Gi
   zookeeper:
     persistence:
       size: 8Gi
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "100m"
+      limits:
+        memory: "1Gi"
+        cpu: "250m"
   
 redis:
   auth:
@@ -34,6 +55,13 @@ redis:
   master:
     persistence:
       size: 8Gi
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+      limits:
+        memory: "512Mi"
+        cpu: "250m"
 
 springApp:
   replicaCount: 1
