@@ -73,7 +73,7 @@ springApp:
     targetMemoryUtilizationPercentage: 80
   image:
     repository: ghcr.io/kgu-basic-capstone/spring
-    tag: build-14
+    tag: build-15
     pullPolicy: Always
   resources:
     requests:
