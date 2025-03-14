@@ -1,4 +1,5 @@
-replicaCount: 1
+springApp:
+  replicaCount: 1
 
 image:
   repository: ghcr.io/kgu-basic-capstone/spring
