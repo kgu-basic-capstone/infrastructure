@@ -1,90 +1,81 @@
 springApp:
   replicaCount: 1
-
-image:
-  repository: ghcr.io/kgu-basic-capstone/spring
-  tag: build-1
-  pullPolicy: Always
-
-service:
-  type: ClusterIP
-  port: 8080
-  annotations:
+  image:
+    repository: ghcr.io/kgu-basic-capstone/spring
+    tag: build-1
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 8080
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/path: "/metrics"
+      prometheus.io/port: "8080"
+  serviceAccount:
+    create: true
+    automount: true
+    annotations: {}
+    name: ""
+  ingress:
+    enabled: false
+    className: "traefik"
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: api.example.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+  serviceMonitor:
+    enabled: true
+    namespace: default
+    interval: 15s
+    path: /metrics
+    labels:
+      release: prometheus
+  podAnnotations:
     prometheus.io/scrape: "true"
-    prometheus.io/path: "/metrics"
     prometheus.io/port: "8080"
-
-serviceAccount:
-  create: true
-  automount: true
-  annotations: {}
-  name: ""
-
-ingress:
-  enabled: false
-  className: "traefik"
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-  hosts:
-    - host: api.example.com
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-
-resources:
-  requests:
-    memory: "512Mi"
-    cpu: "250m"
-  limits:
-    memory: "1Gi"
-    cpu: "500m"
-
-autoscaling:
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 70
-  targetMemoryUtilizationPercentage: 80
-
-serviceMonitor:
-  enabled: true
-  namespace: default
-  interval: 15s
-  path: /metrics
-  labels:
-    release: prometheus
-
-podAnnotations:
-  prometheus.io/scrape: "true"
-  prometheus.io/port: "8080"
-  prometheus.io/path: "/metrics"
-
-env:
-  - name: DB_URL
-    value: "jdbc:mysql://spring-mysql:3306/myapp_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8"
-  - name: DB_NAME
-    value: "myapp_db"
-  - name: DB_USERNAME
-    value: "myapp_user"
-  - name: DB_PASSWORD
-    value: "myapp_password"
-  - name: REDIS_HOST
-    value: "spring-redis-master"
-  - name: REDIS_PORT
-    value: "6379"
-  - name: REDIS_PASSWORD
-    value: "myapp_password"
-  - name: KAFKA_BOOTSTRAP_SERVERS
-    value: "spring-kafka:9092"
-  - name: JWT_SECRET
-    value: "dev_jwt_secret_key"
-  - name: JWT_EXPIRATION_MS
-    value: "86400000"
-  - name: SERVER_PORT
-    value: "8080"
+    prometheus.io/path: "/metrics"
+  env:
+    - name: DB_URL
+      value: "jdbc:mysql://spring-mysql:3306/myapp_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8"
+    - name: DB_NAME
+      value: "myapp_db"
+    - name: DB_USERNAME
+      value: "myapp_user"
+    - name: DB_PASSWORD
+      value: "myapp_password"
+    - name: REDIS_HOST
+      value: "spring-redis-master"
+    - name: REDIS_PORT
+      value: "6379"
+    - name: REDIS_PASSWORD
+      value: "myapp_password"
+    - name: KAFKA_BOOTSTRAP_SERVERS
+      value: "spring-kafka:9092"
+    - name: JWT_SECRET
+      value: "dev_jwt_secret_key"
+    - name: JWT_EXPIRATION_MS
+      value: "86400000"
+    - name: SERVER_PORT
+      value: "8080"
 
 mysql:
   auth:
