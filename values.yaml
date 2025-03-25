@@ -245,6 +245,8 @@ redis:
 
 redisExporter:
   enabled: true
+  imagePullSecrets:
+    - name: docker-credentials
   serviceMonitor:
     enabled: true
     namespace: default
