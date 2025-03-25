@@ -1,3 +1,7 @@
+global:
+  imagePullSecrets: 
+  - name: docker-credentials
+
 springApp:
   replicaCount: 1
   image:
