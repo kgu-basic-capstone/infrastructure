@@ -35,11 +35,11 @@ spec:
             {{- end }}
             {{- if .Values.springApp.secretEnv }}
             {{- range .Values.springApp.secretEnv }}
-              - name: {{ .name }}
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ .secretName }}
-                    key: {{ .key }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretName }}
+                  key: {{ .key }}
             {{- end }}
             {{- end }}
           resources:
