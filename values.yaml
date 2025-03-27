@@ -74,12 +74,14 @@ springApp:
       value: "myapp_password"
     - name: KAFKA_BOOTSTRAP_SERVERS
       value: "spring-kafka:9092"
-    - name: JWT_SECRET
-      value: "dev_jwt_secret_key"
     - name: JWT_EXPIRATION_MS
       value: "86400000"
     - name: SERVER_PORT
       value: "8080"
+  secretEnv:
+    - name: JWT_SECRET
+      key: JWT_SECRET
+      secretName: myapp-jwt-secret
 
 mysql:
   auth:
