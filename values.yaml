@@ -35,11 +35,11 @@ springApp:
             pathType: ImplementationSpecific
   resources:
     requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
       memory: "512Mi"
       cpu: "250m"
-    limits:
-      memory: "1Gi"
-      cpu: "500m"
   autoscaling:
     enabled: true
     minReplicas: 1
@@ -94,11 +94,11 @@ mysql:
       size: 8Gi
     resources:
       requests:
+        memory: "256Mi"
+        cpu: "100m"
+      limits:
         memory: "512Mi"
         cpu: "250m"
-      limits:
-        memory: "1Gi"
-        cpu: "500m"
   serviceMonitor:
     enabled: true
     namespace: default
@@ -145,14 +145,14 @@ kafka:
       protocol: PLAINTEXT
   allowPlaintextListener: true
   replicaCount: 1
-  heapOpts: "-Xmx512m -Xms512m"
+  heapOpts: "-Xmx256m -Xms256m"
   resources:
     requests:
+      memory: "512Mi"
+      cpu: "100m"
+    limits:
       memory: "1Gi"
       cpu: "250m"
-    limits:
-      memory: "2Gi"
-      cpu: "500m"
   persistence:
     size: 8Gi
   zookeeper:
@@ -160,11 +160,11 @@ kafka:
       size: 8Gi
     resources:
       requests:
+        memory: "256Mi"
+        cpu: "50m"
+      limits:
         memory: "512Mi"
         cpu: "100m"
-      limits:
-        memory: "1Gi"
-        cpu: "250m"
   serviceMonitor:
     enabled: true
     namespace: default
@@ -201,10 +201,10 @@ kafkaExporter:
   resources:
     requests:
       memory: "128Mi"
-      cpu: "100m"
+      cpu: "50m"
     limits:
       memory: "256Mi"
-      cpu: "200m"
+      cpu: "100m"
   service:
     annotations:
       prometheus.io/scrape: "true"
@@ -220,11 +220,11 @@ redis:
       size: 8Gi
     resources:
       requests:
+        memory: "128Mi"
+        cpu: "50m"
+      limits:
         memory: "256Mi"
         cpu: "100m"
-      limits:
-        memory: "512Mi"
-        cpu: "250m"
   serviceMonitor:
     enabled: true
     namespace: default
@@ -249,6 +249,13 @@ redisExporter:
   enabled: true
   imagePullSecrets:
     - name: docker-credentials
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "25m"
+    limits:
+      memory: "128Mi"
+      cpu: "50m"
   serviceMonitor:
     enabled: true
     namespace: default
