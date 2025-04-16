@@ -191,13 +191,8 @@ kafkaExporter:
     interval: 15s
     labels:
       release: prometheus
-  config:
-    kafka:
-      server: spring-kafka-controller:9092
-    topics:
-      enabled: true
-    groups:
-      enabled: true
+  kafkaServer:
+    - spring-kafka-controller:9092
   resources:
     requests:
       memory: "128Mi"
