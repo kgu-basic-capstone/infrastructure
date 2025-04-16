@@ -191,8 +191,9 @@ kafkaExporter:
     interval: 15s
     labels:
       release: prometheus
-  kafkaServer:
-    - spring-kafka-controller:9092
+  config:
+    kafkaServer:
+      - spring-kafka-controller:9092
   resources:
     requests:
       memory: "128Mi"
