@@ -193,7 +193,7 @@ kafkaExporter:
       release: prometheus
   config:
     kafka:
-      server: spring-kafka:9092
+      server: spring-kafka-controller:9092
     topics:
       enabled: true
     groups:
