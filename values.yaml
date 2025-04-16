@@ -184,7 +184,7 @@ kafka:
         release: prometheus
 
 kafkaExporter:
-  enabled: false
+  enabled: true
   serviceMonitor:
     enabled: true
     namespace: default
@@ -193,7 +193,7 @@ kafkaExporter:
       release: prometheus
   config:
     kafka:
-      server: spring-spring-kafka:9092
+      server: spring-kafka:9092
     topics:
       enabled: true
     groups:
