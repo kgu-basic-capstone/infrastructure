@@ -82,6 +82,18 @@ springApp:
     - name: JWT_SECRET
       key: JWT_SECRET
       secretName: myapp-jwt-secret
+    - name: GOOGLE_CLIENT_ID
+      key: GOOGLE_CLIENT_ID
+      secretName: myapp-jwt-secret
+    - name: GOOGLE_CLIENT_SECRET
+      key: GOOGLE_CLIENT_SECRET
+      secretName: myapp-jwt-secret
+    - name: KAKAO_CLIENT_ID
+      key: KAKAO_CLIENT_ID
+      secretName: myapp-jwt-secret
+    - name: KAKAO_CLIENT_SECRET
+      key: KAKAO_CLIENT_SECRET
+      secretName: myapp-jwt-secret
 
 mysql:
   auth:
@@ -263,7 +275,7 @@ redisExporter:
       password: myapp_password
 
 kafkaExporter:
-  enabled: true
+  enabled: false
   serviceMonitor:
     enabled: true
     namespace: default
